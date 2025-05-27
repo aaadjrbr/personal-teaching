@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Pronunciation Guide: -S & -ED Endings</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto+Slab:wght@400;500;600&family=Open+Sans:wght@400;500;600&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .tab-button.active {
+            border-color: var(--active-tab-color);
+            color: var(--active-tab-text);
+            font-weight: 600;
+        }
+        .phonetic {
+            font-family: 'Arial Unicode MS', 'Lucida Sans Unicode', 'DejaVu Sans', sans-serif;
+        }
+        .arrow {
+            font-family: sans-serif;
+        }
+
+        li {
+            color: var(--list-color);
+        }
+        
+        /* Light theme */
+        :root {
+            --bg-color: #f8fafc;
+            --text-color: #1e293b;
+            --list-color: #374151;
+            --card-bg: #ffffff;
+            --card-border: #e2e8f0;
+            --highlight-bg: #fef3c7;
+            --highlight-border: #f59e0b;
+            --primary-color: #d97706;
+            --primary-dark: #92400e;
+            --active-tab-color: #f59e0b;
+            --active-tab-text: #7c2d12;
+            --footer-border: #cbd5e1;
+        }
+        
+        /* Dark theme */
+        .dark {
+            --bg-color: #1e293b;
+            --text-color: #e2e8f0;
+            --list-color: #d1d5db;
+            --card-bg: #374151;
+            --card-border: #4b5563;
+            --highlight-bg: #451a03;
+            --highlight-border: #f59e0b;
+            --primary-color: #f59e0b;
+            --primary-dark: #fcd34d;
+            --active-tab-color: #f59e0b;
+            --active-tab-text: #fef3c7;
+            --footer-border: #4b5563;
+        }
+        
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: var(--current-font), 'Inter', sans-serif;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 100;
+            background-color: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        
+        .settings-panel {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            z-index: 100;
+            background-color: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 8px;
+            padding: 15px;
+            width: 250px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            display: none;
+        }
+        
+        .settings-toggle {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            z-index: 100;
+            background-color: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container mx-auto p-4 sm:p-6 md:p-8 max-w-4xl">
+        <header class="text-center mb-8">
+            <h1 class="text-3xl sm:text-4xl font-bold text-primary-dark">English Endings: Mastering -S and -ED Pronunciation</h1>
+        </header>
+
+        <section id="introduction" class="mb-8 p-6 bg-card-bg rounded-lg shadow">
+            <h2 class="text-2xl font-semibold text-primary-color mb-3">Introduction</h2>
+            <p class="text-lg leading-relaxed">
+                Understanding how to pronounce the endings of words in English can be tricky, but it's essential for clear and natural speech. The "-s" and "-ed" endings follow specific phonetic rules based on the sound that comes immediately before them.
+            </p>
+            <p class="text-lg leading-relaxed mt-2">
+                This guide will break down these rules, helping you master the pronunciation of these common English suffixes.
+            </p>
+        </section>
+
+        <div class="mb-8">
+            <div class="border-b border-slate-300 dark:border-slate-600">
+                <nav class="-mb-px flex space-x-4" aria-label="Tabs">
+                    <button class="tab-button active whitespace-nowrap py-4 px-1 border-b-2 font-medium text-lg text-slate-600 dark:text-slate-200 hover:text-primary-color hover:border-primary-color" data-tab="ed-rules">
+                        -ED Endings
+                    </button>
+                    <button class="tab-button whitespace-nowrap py-4 px-1 border-b-2 font-medium text-lg text-slate-600 dark:text-slate-200 hover:text-primary-color hover:border-primary-color" data-tab="s-rules">
+                        -S Endings
+                    </button>
+                </nav>
+            </div>
+        </div>
+
+        <main>
+            <div id="ed-rules" class="tab-content active">
+                <section class="p-6 bg-card-bg rounded-lg shadow">
+                    <h2 class="text-2xl font-semibold text-primary-color mb-6">The "-ED" Ending: Past Tense Pronunciation</h2>
+                    <p class="text-lg mb-6">The regular past tense ending "-ed" has three possible pronunciations. The key is to listen to the <em>last sound</em> of the base verb.</p>
+
+                    <article class="mb-8 p-4 border border-highlight-border rounded-md bg-highlight-bg">
+                        <h3 class="text-xl font-semibold text-primary-dark mb-2">Rule 1: Pronounced as <span class="phonetic text-red-600">/t/</span> (Voiceless)</h3>
+                        <p class="mb-1"><strong>When to use:</strong> When the base verb ends in a <strong>voiceless consonant sound</strong>.</p>
+                        <p class="mb-1"><strong>Why:</strong> Voiceless sounds naturally pair with other voiceless sounds.</p>
+                        <p class="mb-2"><strong>Voiceless Consonants:</strong> <span class="phonetic">/p/, /k/, /f/, /s/, /ʃ/ (sh), /tʃ/ (ch), /θ/ (unvoiced 'th' as in "thin")</span></p>
+                        <h4 class="font-semibold mt-3 mb-1">Examples:</h4>
+                        <ul class="list-disc list-inside space-y-1">
+                            <li><code>walk</code> <span class="phonetic">/wɔːk/</span> <span class="arrow">→</span> <code>walked</code> <span class="phonetic">/wɔːkt/</span></li>
+                            <li><code>stop</code> <span class="phonetic">/stɒp/</span> <span class="arrow">→</span> <code>stopped</code> <span class="phonetic">/stɒpt/</span></li>
+                            <li><code>laugh</code> <span class="phonetic">/læf/</span> <span class="arrow">→</span> <code>laughed</code> <span class="phonetic">/læft/</span></li>
+                            <li><code>wash</code> <span class="phonetic">/wɒʃ/</span> <span class="arrow">→</span> <code>washed</code> <span class="phonetic">/wɒʃt/</span></li>
+                            <li><code>watch</code> <span class="phonetic">/wɒtʃ/</span> <span class="arrow">→</span> <code>watched</code> <span class="phonetic">/wɒtʃt/</span></li>
+                            <li><code>kiss</code> <span class="phonetic">/kɪs/</span> <span class="arrow">→</span> <code>kissed</code> <span class="phonetic">/kɪst/</span></li>
+                        </ul>
+                    </article>
+
+                    <article class="mb-8 p-4 border border-highlight-border rounded-md bg-highlight-bg">
+                        <h3 class="text-xl font-semibold text-primary-dark mb-2">Rule 2: Pronounced as <span class="phonetic text-red-600">/d/</span> (Voiced)</h3>
+                        <p class="mb-1"><strong>When to use:</strong> When the base verb ends in a <strong>voiced sound</strong> (all vowels or voiced consonants).</p>
+                        <p class="mb-1"><strong>Why:</strong> Voiced sounds naturally pair with other voiced sounds.</p>
+                        <p class="mb-2"><strong>Voiced Sounds:</strong> All vowel sounds, <span class="phonetic">/b/, /g/, /v/, /z/, /ʒ/ (zh), /dʒ/ (j), /ð/ (voiced 'th' as in "this"), /m/, /n/, /ŋ/ (ng), /l/, /r/</span></p>
+                        <h4 class="font-semibold mt-3 mb-1">Examples:</h4>
+                        <ul class="list-disc list-inside space-y-1">
+                            <li><code>play</code> <span class="phonetic">/pleɪ/</span> <span class="arrow">→</span> <code>played</code> <span class="phonetic">/pleɪd/</span></li>
+                            <li><code>love</code> <span class="phonetic">/lʌv/</span> <span class="arrow">→</span> <code>loved</code> <span class="phonetic">/lʌvd/</span></li>
+                            <li><code>clean</code> <span class="phonetic">/kliːn/</span> <span class="arrow">→</span> <code>cleaned</code> <span class="phonetic">/kliːnd/</span></li>
+                            <li><code>call</code> <span class="phonetic">/kɔːl/</span> <span class="arrow">→</span> <code>called</code> <span class="phonetic">/kɔːld/</span></li>
+                            <li><code>judge</code> <span class="phonetic">/dʒʌdʒ/</span> <span class="arrow">→</span> <code>judged</code> <span class="phonetic">/dʒʌdʒd/</span></li>
+                            <li><code>breathe</code> <span class="phonetic">/briːð/</span> <span class="arrow">→</span> <code>breathed</code> <span class="phonetic">/briːðd/</span></li>
+                        </ul>
+                    </article>
+
+                    <article class="p-4 border border-highlight-border rounded-md bg-highlight-bg">
+                        <h3 class="text-xl font-semibold text-primary-dark mb-2">Rule 3: Pronounced as <span class="phonetic text-red-600">/ɪd/</span> or <span class="phonetic text-red-600">/əd/</span> (Extra Syllable)</h3>
+                        <p class="mb-1"><strong>When to use:</strong> When the base verb ends in a <span class="phonetic">/t/</span> or <span class="phonetic">/d/</span> sound.</p>
+                        <p class="mb-1"><strong>Why:</strong> It's difficult to pronounce two identical or very similar alveolar stops consecutively without adding a vowel sound.</p>
+                        <p class="mb-2"><strong>Sounds:</strong> <span class="phonetic">/t/, /d/</span></p>
+                        <h4 class="font-semibold mt-3 mb-1">Examples:</h4>
+                        <ul class="list-disc list-inside space-y-1">
+                            <li><code>want</code> <span class="phonetic">/wɒnt/</span> <span class="arrow">→</span> <code>wanted</code> <span class="phonetic">/wɒntɪd/</span></li>
+                            <li><code>need</code> <span class="phonetic">/niːd/</span> <span class="arrow">→</span> <code>needed</code> <span class="phonetic">/niːdɪd/</span></li>
+                            <li><code>decide</code> <span class="phonetic">/dɪˈsaɪd/</span> <span class="arrow">→</span> <code>decided</code> <span class="phonetic">/dɪˈsaɪdɪd/</span></li>
+                            <li><code>start</code> <span class="phonetic">/stɑːrt/</span> <span class="arrow">→</span> <code>started</code> <span class="phonetic">/stɑːrtɪd/</span></li>
+                        </ul>
+                    </article>
+                </section>
+            </div>
+
+            <div id="s-rules" class="tab-content">
+                <section class="p-6 bg-card-bg rounded-lg shadow">
+                    <h2 class="text-2xl font-semibold text-primary-color mb-6">The "-S" Ending: Plurals, Third-Person Singular, Possessives</h2>
+                    <p class="text-lg mb-6">The "-s" ending (used for plural nouns, third-person singular present tense verbs, and possessive nouns) also has three possible pronunciations. The rule depends on the <em>last sound</em> of the base word.</p>
+
+                    <article class="mb-8 p-4 border border-highlight-border rounded-md bg-highlight-bg">
+                        <h3 class="text-xl font-semibold text-primary-dark mb-2">Rule 1: Pronounced as <span class="phonetic text-red-600">/ɪz/</span> or <span class="phonetic text-red-600">/əz/</span> (Extra Syllable)</h3>
+                        <p class="mb-1"><strong>When to use:</strong> When the base word ends in a <strong>sibilant sound</strong> (a sound with a "hissing" or "shushing" quality).</p>
+                        <p class="mb-1"><strong>Why:</strong> Adding an <span class="phonetic">/s/</span> or <span class="phonetic">/z/</span> directly after a sibilant is awkward; the extra vowel makes it easier to pronounce.</p>
+                        <p class="mb-2"><strong>Sibilant Sounds:</strong> <span class="phonetic">/s/, /z/, /ʃ/ (sh), /ʒ/ (zh), /tʃ/ (ch), /dʒ/ (j)</span></p>
+                        <h4 class="font-semibold mt-3 mb-1">Examples:</h4>
+                        <ul class="list-disc list-inside space-y-1">
+                            <li><code>bus</code> <span class="phonetic">/bʌs/</span> <span class="arrow">→</span> <code>buses</code> <span class="phonetic">/bʌsɪz/</span></li>
+                            <li><code>kiss</code> <span class="phonetic">/kɪs/</span> <span class="arrow">→</span> <code>kisses</code> <span class="phonetic">/kɪsɪz/</span></li>
+                            <li><code>box</code> <span class="phonetic">/bɒks/</span> <span class="arrow">→</span> <code>boxes</code> <span class="phonetic">/bɒksɪz/</span> (ends in /ks/ sound)</li>
+                            <li><code>wash</code> <span class="phonetic">/wɒʃ/</span> <span class="arrow">→</span> <code>washes</code> <span class="phonetic">/wɒʃɪz/</span></li>
+                        </ul>
+                    </article>
+
+                    <article class="mb-8 p-4 border border-highlight-border rounded-md bg-highlight-bg">
+                        <h3 class="text-xl font-semibold text-primary-dark mb-2">Rule 2: Pronounced as <span class="phonetic text-red-600">/s/</span> (Voiceless)</h3>
+                        <p class="mb-1"><strong>When to use:</strong> When the base word ends in a <strong>voiceless consonant sound</strong>.</p>
+                        <p class="mb-1"><strong>Why:</strong> Voiceless sounds pair naturally with other voiceless sounds.</p>
+                        <p class="mb-2"><strong>Voiceless Consonants:</strong> <span class="phonetic">/p/, /t/, /k/, /f/, /θ/ (unvoiced 'th' as in "thin")</span></p>
+                        <h4 class="font-semibold mt-3 mb-1">Examples:</h4>
+                        <ul class="list-disc list-inside space-y-1">
+                            <li><code>cat</code> <span class="phonetic">/kæt/</span> <span class="arrow">→</span> <code>cats</code> <span class="phonetic">/kæts/</span></li>
+                            <li><code>book</code> <span class="phonetic">/bʊk/</span> <span class="arrow">→</span> <code>books</code> <span class="phonetic">/bʊks/</span></li>
+                            <li><code>map</code> <span class="phonetic">/mæp/</span> <span class="arrow">→</span> <code>maps</code> <span class="phonetic">/mæps/</span></li>
+                            <li><code>laugh</code> <span class="phonetic">/læf/</span> <span class="arrow">→</span> <code>laughs</code> <span class="phonetic">/læfs/</span></li>
+                            <li><code>month</code> <span class="phonetic">/mʌnθ/</span> <span class="arrow">→</span> <code>months</code> <span class="phonetic">/mʌnθs/</span></li>
+                        </ul>
+                    </article>
+
+                    <article class="p-4 border border-highlight-border rounded-md bg-highlight-bg">
+                        <h3 class="text-xl font-semibold text-primary-dark mb-2">Rule 3: Pronounced as <span class="phonetic text-red-600">/z/</span> (Voiced)</h3>
+                        <p class="mb-1"><strong>When to use:</strong> When the base word ends in a <strong>voiced sound</strong> (all vowels or voiced consonants).</p>
+                        <p class="mb-1"><strong>Why:</strong> Voiced sounds naturally pair with other voiced sounds.</p>
+                        <p class="mb-2"><strong>Voiced Sounds:</strong> All vowel sounds, <span class="phonetic">/b/, /d/, /g/, /v/, /ð/ (voiced 'th' as in "this"), /m/, /n/, /ŋ/ (ng), /l/, /r/</span></p>
+                        <h4 class="font-semibold mt-3 mb-1">Examples:</h4>
+                        <ul class="list-disc list-inside space-y-1">
+                            <li><code>dog</code> <span class="phonetic">/dɒɡ/</span> <span class="arrow">→</span> <code>dogs</code> <span class="phonetic">/dɒɡz/</span></li>
+                            <li><code>love</code> <span class="phonetic">/lʌv/</span> <span class="arrow">→</span> <code>loves</code> <span class="phonetic">/lʌvz/</span></li>
+                            <li><code>dream</code> <span class="phonetic">/driːm/</span> <span class="arrow">→</span> <code>dreams</code> <span class="phonetic">/driːmz/</span></li>
+                            <li><code>car</code> <span class="phonetic">/kɑːr/</span> <span class="arrow">→</span> <code>cars</code> <span class="phonetic">/kɑːrz/</span></li>
+                            <li><code>day</code> <span class="phonetic">/deɪ/</span> <span class="arrow">→</span> <code>days</code> <span class="phonetic">/deɪz/</span></li>
+                            <li><code>sing</code> <span class="phonetic">/sɪŋ/</span> <span class="arrow">→</span> <code>sings</code> <span class="phonetic">/sɪŋz/</span></li>
+                            <li><code>breathe</code> <span class="phonetic">/briːð/</span> <span class="arrow">→</span> <code>breathes</code> <span class="phonetic">/briːðz/</span></li>
+                        </ul>
+                    </article>
+                </section>
+            </div>
+        </main>
+
+        <footer class="mt-12 pt-8 border-t border-footer-border text-center">
+            <section id="conclusion" class="p-6 bg-card-bg rounded-lg shadow">
+                <h2 class="text-2xl font-semibold text-primary-color mb-3">Conclusion</h2>
+                <p class="text-lg leading-relaxed">
+                    By understanding the concepts of voiced and voiceless sounds, and identifying the final sound of a word, you can accurately predict and produce the correct pronunciation for "-s" and "-ed" endings in English. Consistent practice with these rules will significantly improve your fluency and confidence!
+                </p>
+                <br/>
+                <p class="text-lg leading-relaxed">
+                    Created by Adenilson Ribeiro
+                </p>
+            </section>
+        </footer>
+    </div>
+
+    <!-- Theme toggle button -->
+    <div class="theme-toggle" id="themeToggle">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 dark:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+        </svg>
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hidden dark:block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+        </svg>
+    </div>
+
+    <!-- Settings toggle button -->
+    <div class="settings-toggle" id="settingsToggle">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+        </svg>
+    </div>
+
+    <!-- Settings panel -->
+    <div class="settings-panel" id="settingsPanel">
+        <h3 class="text-lg font-semibold mb-3">Settings</h3>
+        
+        <div class="mb-4">
+            <label class="block text-sm font-medium mb-1">Font Family</label>
+            <select id="fontSelect" class="w-full p-2 border rounded bg-card-bg border-card-border">
+                <option value="Inter">Inter (Default)</option>
+                <option value="'Roboto Slab'">Roboto Slab</option>
+                <option value="'Open Sans'">Open Sans</option>
+                <option value="Merriweather">Merriweather</option>
+            </select>
+        </div>
+        
+        <div>
+            <label class="block text-sm font-medium mb-1">Color Scheme</label>
+            <div class="flex space-x-2">
+                <button id="lightTheme" class="flex-1 p-2 border rounded bg-white text-gray-800">Light</button>
+                <button id="darkTheme" class="flex-1 p-2 border rounded bg-gray-800 text-white">Dark</button>
+                <button id="autoTheme" class="flex-1 p-2 border rounded bg-gray-200 text-gray-800 dark:bg-gray-700 dark:text-white">Auto</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Tab functionality
+            const tabButtons = document.querySelectorAll('.tab-button');
+            const tabContents = document.querySelectorAll('.tab-content');
+
+            tabButtons.forEach(button => {
+                button.addEventListener('click', function () {
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    tabContents.forEach(content => content.classList.remove('active'));
+
+                    this.classList.add('active');
+                    const targetTab = this.getAttribute('data-tab');
+                    document.getElementById(targetTab).classList.add('active');
+                });
+            });
+
+            // Theme functionality
+            const themeToggle = document.getElementById('themeToggle');
+            const lightThemeBtn = document.getElementById('lightTheme');
+            const darkThemeBtn = document.getElementById('darkTheme');
+            const autoThemeBtn = document.getElementById('autoTheme');
+            const html = document.documentElement;
+            
+            // Check for saved theme preference or use system preference
+            function loadThemePreference() {
+                const savedTheme = localStorage.getItem('theme');
+                const savedTime = localStorage.getItem('themeTime');
+                const now = new Date().getTime();
+                
+                // If preference is older than 24 hours, clear it
+                if (savedTime && now - savedTime > 24 * 60 * 60 * 1000) {
+                    localStorage.removeItem('theme');
+                    localStorage.removeItem('themeTime');
+                    applySystemTheme();
+                    return;
+                }
+                
+                if (savedTheme === 'dark') {
+                    html.classList.add('dark');
+                } else if (savedTheme === 'light') {
+                    html.classList.remove('dark');
+                } else {
+                    applySystemTheme();
+                }
+            }
+            
+            function applySystemTheme() {
+                if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                    html.classList.add('dark');
+                } else {
+                    html.classList.remove('dark');
+                }
+            }
+            
+            function saveThemePreference(theme) {
+                localStorage.setItem('theme', theme);
+                localStorage.setItem('themeTime', new Date().getTime());
+            }
+            
+            // Initial load
+            loadThemePreference();
+            
+            // Toggle theme
+            themeToggle.addEventListener('click', () => {
+                html.classList.toggle('dark');
+                saveThemePreference(html.classList.contains('dark') ? 'dark' : 'light');
+            });
+            
+            // Manual theme selection
+            lightThemeBtn.addEventListener('click', () => {
+                html.classList.remove('dark');
+                saveThemePreference('light');
+            });
+            
+            darkThemeBtn.addEventListener('click', () => {
+                html.classList.add('dark');
+                saveThemePreference('dark');
+            });
+            
+            autoThemeBtn.addEventListener('click', () => {
+                localStorage.removeItem('theme');
+                localStorage.removeItem('themeTime');
+                applySystemTheme();
+            });
+            
+            // Watch for system theme changes
+            window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+                if (!localStorage.getItem('theme')) {
+                    if (e.matches) {
+                        html.classList.add('dark');
+                    } else {
+                        html.classList.remove('dark');
+                    }
+                }
+            });
+
+            // Font functionality
+            const fontSelect = document.getElementById('fontSelect');
+            
+            function loadFontPreference() {
+                const savedFont = localStorage.getItem('font');
+                const savedTime = localStorage.getItem('fontTime');
+                const now = new Date().getTime();
+                
+                // If preference is older than 24 hours, clear it
+                if (savedTime && now - savedTime > 24 * 60 * 60 * 1000) {
+                    localStorage.removeItem('font');
+                    localStorage.removeItem('fontTime');
+                    return;
+                }
+                
+                if (savedFont) {
+                    document.documentElement.style.setProperty('--current-font', savedFont);
+                    fontSelect.value = savedFont;
+                }
+            }
+            
+            function saveFontPreference(font) {
+                localStorage.setItem('font', font);
+                localStorage.setItem('fontTime', new Date().getTime());
+            }
+            
+            // Initial load
+            loadFontPreference();
+            
+            // Change font
+            fontSelect.addEventListener('change', () => {
+                const selectedFont = fontSelect.value;
+                document.documentElement.style.setProperty('--current-font', selectedFont);
+                saveFontPreference(selectedFont);
+            });
+
+            // Settings panel toggle
+            const settingsToggle = document.getElementById('settingsToggle');
+            const settingsPanel = document.getElementById('settingsPanel');
+            
+            settingsToggle.addEventListener('click', () => {
+                settingsPanel.style.display = settingsPanel.style.display === 'block' ? 'none' : 'block';
+            });
+            
+            // Close settings when clicking outside
+            document.addEventListener('click', (event) => {
+                if (!settingsPanel.contains(event.target) && !settingsToggle.contains(event.target)) {
+                    settingsPanel.style.display = 'none';
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
