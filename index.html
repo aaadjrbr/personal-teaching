@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+    <!-- Created by Adenilson Ribeiro @englishwadenilson -->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -26,7 +27,6 @@
         .arrow {
             font-family: sans-serif;
         }
-
         li {
             color: var(--list-color);
         }
@@ -45,6 +45,9 @@
             --active-tab-color: #f59e0b;
             --active-tab-text: #7c2d12;
             --footer-border: #cbd5e1;
+            --button-bg: #d97706;
+            --button-text: #ffffff;
+            --button-hover: #92400e;
         }
         
         /* Dark theme */
@@ -61,6 +64,9 @@
             --active-tab-color: #f59e0b;
             --active-tab-text: #fef3c7;
             --footer-border: #4b5563;
+            --button-bg: #f59e0b;
+            --button-text: #1e293b;
+            --button-hover: #fcd34d;
         }
         
         body {
@@ -117,6 +123,58 @@
             cursor: pointer;
             box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 200;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-content {
+            background-color: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 8px;
+            padding: 20px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+        .modal-close {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            cursor: pointer;
+            color: var(--text-color);
+            font-size: 1.5rem;
+        }
+        .quiz-feedback.correct {
+            background-color: #dcfce7;
+            color: #15803d;
+            padding: 0.5rem;
+            border-radius: 0.375rem;
+        }
+        .quiz-feedback.incorrect {
+            background-color: #fee2e2;
+            color: #b91c1c;
+            padding: 0.5rem;
+            border-radius: 0.375rem;
+        }
+        .dark .quiz-feedback.correct {
+            background-color: #14532d;
+            color: #86efac;
+        }
+        .dark .quiz-feedback.incorrect {
+            background-color: #7f1d1d;
+            color: #f87171;
+        }
     </style>
 </head>
 <body>
@@ -167,7 +225,6 @@
                             <li><code>laugh</code> <span class="phonetic">/læf/</span> <span class="arrow">→</span> <code>laughed</code> <span class="phonetic">/læft/</span></li>
                             <li><code>wash</code> <span class="phonetic">/wɒʃ/</span> <span class="arrow">→</span> <code>washed</code> <span class="phonetic">/wɒʃt/</span></li>
                             <li><code>watch</code> <span class="phonetic">/wɒtʃ/</span> <span class="arrow">→</span> <code>watched</code> <span class="phonetic">/wɒtʃt/</span></li>
-                            <li><code>kiss</code> <span class="phonetic">/kɪs/</span> <span class="arrow">→</span> <code>kissed</code> <span class="phonetic">/kɪst/</span></li>
                         </ul>
                     </article>
 
@@ -182,8 +239,7 @@
                             <li><code>love</code> <span class="phonetic">/lʌv/</span> <span class="arrow">→</span> <code>loved</code> <span class="phonetic">/lʌvd/</span></li>
                             <li><code>clean</code> <span class="phonetic">/kliːn/</span> <span class="arrow">→</span> <code>cleaned</code> <span class="phonetic">/kliːnd/</span></li>
                             <li><code>call</code> <span class="phonetic">/kɔːl/</span> <span class="arrow">→</span> <code>called</code> <span class="phonetic">/kɔːld/</span></li>
-                            <li><code>judge</code> <span class="phonetic">/dʒʌdʒ/</span> <span class="arrow">→</span> <code>judged</code> <span class="phonetic">/dʒʌdʒd/</span></li>
-                            <li><code>breathe</code> <span class="phonetic">/briːð/</span> <span class="arrow">→</span> <code>breathed</code> <span class="phonetic">/briːðd/</span></li>
+                            <li><code>learn</code> <span class="phonetic">/lɜːrn/</span> <span class="arrow">→</span> <code>learned</code> <span class="phonetic">/lɜːrnd/</span></li>
                         </ul>
                     </article>
 
@@ -198,8 +254,92 @@
                             <li><code>need</code> <span class="phonetic">/niːd/</span> <span class="arrow">→</span> <code>needed</code> <span class="phonetic">/niːdɪd/</span></li>
                             <li><code>decide</code> <span class="phonetic">/dɪˈsaɪd/</span> <span class="arrow">→</span> <code>decided</code> <span class="phonetic">/dɪˈsaɪdɪd/</span></li>
                             <li><code>start</code> <span class="phonetic">/stɑːrt/</span> <span class="arrow">→</span> <code>started</code> <span class="phonetic">/stɑːrtɪd/</span></li>
+                            <li><code>wait</code> <span class="phonetic">/weɪt/</span> <span class="arrow">→</span> <code>waited</code> <span class="phonetic">/weɪtɪd/</span></li>
                         </ul>
                     </article>
+
+                    <div class="mt-6">
+                        <button class="px-4 py-2 bg-button-bg text-button-text rounded hover:bg-button-hover" onclick="openQuiz('ed-quiz')">Take the -ED Pronunciation Quiz</button>
+                        <div id="ed-quiz" class="mt-4 hidden">
+                            <h3 class="text-xl font-semibold text-primary-dark mb-4">Test Your -ED Pronunciation Knowledge</h3>
+                            <div class="space-y-6">
+                                <div>
+                                    <p class="mb-2">1. How is the "-ed" ending pronounced in <code>miss</code>?</p>
+                                    <div class="space-y-2">
+                                        <label class="flex items-center">
+                                            <input type="radio" name="ed-q1" value="/t/" class="mr-2"> <span class="phonetic">/t/</span>
+                                        </label>
+                                        <label class="flex items-center">
+                                            <input type="radio" name="ed-q1" value="/d/" class="mr-2"> <span class="phonetic">/d/</span>
+                                        </label>
+                                        <label class="flex items-center">
+                                            <input type="radio" name="ed-q1" value="/ɪd/" class="mr-2"> <span class="phonetic">/ɪd/</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div>
+                                    <p class="mb-2">2. How is the "-ed" ending pronounced in <code>live</code>?</p>
+                                    <div class="space-y-2">
+                                        <label class="flex items-center">
+                                            <input type="radio" name="ed-q2" value="/t/" class="mr-2"> <span class="phonetic">/t/</span>
+                                        </label>
+                                        <label class="flex items-center">
+                                            <input type="radio" name="ed-q2" value="/d/" class="mr-2"> <span class="phonetic">/d/</span>
+                                        </label>
+                                        <label class="flex items-center">
+                                            <input type="radio" name="ed-q2" value="/ɪd/" class="mr-2"> <span class="phonetic">/ɪd/</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div>
+                                    <p class="mb-2">3. How is the "-ed" ending pronounced in <code>wait</code>?</p>
+                                    <div class="space-y-2">
+                                        <label class="flex items-center">
+                                            <input type="radio" name="ed-q3" value="/t/" class="mr-2"> <span class="phonetic">/t/</span>
+                                        </label>
+                                        <label class="flex items-center">
+                                            <input type="radio" name="ed-q3" value="/d/" class="mr-2"> <span class="phonetic">/d/</span>
+                                        </label>
+                                        <label class="flex items-center">
+                                            <input type="radio" name="ed-q3" value="/ɪd/" class="mr-2"> <span class="phonetic">/ɪd/</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div>
+                                    <p class="mb-2">4. How is the "-ed" ending pronounced in <code>jump</code>?</p>
+                                    <div class="space-y-2">
+                                        <label class="flex items-center">
+                                            <input type="radio" name="ed-q4" value="/t/" class="mr-2"> <span class="phonetic">/t/</span>
+                                        </label>
+                                        <label class="flex items-center">
+                                            <input type="radio" name="ed-q4" value="/d/" class="mr-2"> <span class="phonetic">/d/</span>
+                                        </label>
+                                        <label class="flex items-center">
+                                            <input type="radio" name="ed-q4" value="/ɪd/" class="mr-2"> <span class="phonetic">/ɪd/</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div>
+                                    <p class="mb-2">5. How is the "-ed" ending pronounced in <code>try</code>?</p>
+                                    <div class="space-y-2">
+                                        <label class="flex items-center">
+                                            <input type="radio" name="ed-q5" value="/t/" class="mr-2"> <span class="phonetic">/t/</span>
+                                        </label>
+                                        <label class="flex items-center">
+                                            <input type="radio" name="ed-q5" value="/d/" class="mr-2"> <span class="phonetic">/d/</span>
+                                        </label>
+                                        <label class="flex items-center">
+                                            <input type="radio" name="ed-q5" value="/ɪd/" class="mr-2"> <span class="phonetic">/ɪd/</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-4 flex space-x-2">
+                                <button class="px-4 py-2 bg-button-bg text-button-text rounded hover:bg-button-hover" onclick="submitQuiz('ed')">Submit Quiz</button>
+                                <button class="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600" onclick="resetQuiz('ed')">Try Again</button>
+                            </div>
+                        </div>
+                    </div>
                 </section>
             </div>
 
@@ -216,8 +356,9 @@
                         <h4 class="font-semibold mt-3 mb-1">Examples:</h4>
                         <ul class="list-disc list-inside space-y-1">
                             <li><code>bus</code> <span class="phonetic">/bʌs/</span> <span class="arrow">→</span> <code>buses</code> <span class="phonetic">/bʌsɪz/</span></li>
-                            <li><code>kiss</code> <span class="phonetic">/kɪs/</span> <span class="arrow">→</span> <code>kisses</code> <span class="phonetic">/kɪsɪz/</span></li>
-                            <li><code>box</code> <span class="phonetic">/bɒks/</span> <span class="arrow">→</span> <code>boxes</code> <span class="phonetic">/bɒksɪz/</span> (ends in /ks/ sound)</li>
+                            <li><code>watch</code> <span class="phonetic">/wɒtʃ/</span> <span class="arrow">→</span> <code>watches</code> <span class="phonetic">/wɒtʃɪz/</span></li>
+                            <li><code>box</code> <span class="phonetic">/bɒks/</span> <span class="arrow">→</span> <code>boxes</code> <span class="phonetic">/bɒksɪz/</span></li>
+                            <li><code>judge</code> <span class="phonetic">/dʒʌdʒ/</span> <span class="arrow">→</span> <code>judges</code> <span class="phonetic">/dʒʌdʒɪz/</span></li>
                             <li><code>wash</code> <span class="phonetic">/wɒʃ/</span> <span class="arrow">→</span> <code>washes</code> <span class="phonetic">/wɒʃɪz/</span></li>
                         </ul>
                     </article>
@@ -231,7 +372,7 @@
                         <ul class="list-disc list-inside space-y-1">
                             <li><code>cat</code> <span class="phonetic">/kæt/</span> <span class="arrow">→</span> <code>cats</code> <span class="phonetic">/kæts/</span></li>
                             <li><code>book</code> <span class="phonetic">/bʊk/</span> <span class="arrow">→</span> <code>books</code> <span class="phonetic">/bʊks/</span></li>
-                            <li><code>map</code> <span class="phonetic">/mæp/</span> <span class="arrow">→</span> <code>maps</code> <span class="phonetic">/mæps/</span></li>
+                            <li><code>cup</code> <span class="phonetic">/kʌp/</span> <span class="arrow">→</span> <code>cups</code> <span class="phonetic">/kʌps/</span></li>
                             <li><code>laugh</code> <span class="phonetic">/læf/</span> <span class="arrow">→</span> <code>laughs</code> <span class="phonetic">/læfs/</span></li>
                             <li><code>month</code> <span class="phonetic">/mʌnθ/</span> <span class="arrow">→</span> <code>months</code> <span class="phonetic">/mʌnθs/</span></li>
                         </ul>
@@ -245,14 +386,95 @@
                         <h4 class="font-semibold mt-3 mb-1">Examples:</h4>
                         <ul class="list-disc list-inside space-y-1">
                             <li><code>dog</code> <span class="phonetic">/dɒɡ/</span> <span class="arrow">→</span> <code>dogs</code> <span class="phonetic">/dɒɡz/</span></li>
-                            <li><code>love</code> <span class="phonetic">/lʌv/</span> <span class="arrow">→</span> <code>loves</code> <span class="phonetic">/lʌvz/</span></li>
+                            <li><code>play</code> <span class="phonetic">/pleɪ/</span> <span class="arrow">→</span> <code>plays</code> <span class="phonetic">/pleɪz/</span></li>
                             <li><code>dream</code> <span class="phonetic">/driːm/</span> <span class="arrow">→</span> <code>dreams</code> <span class="phonetic">/driːmz/</span></li>
                             <li><code>car</code> <span class="phonetic">/kɑːr/</span> <span class="arrow">→</span> <code>cars</code> <span class="phonetic">/kɑːrz/</span></li>
-                            <li><code>day</code> <span class="phonetic">/deɪ/</span> <span class="arrow">→</span> <code>days</code> <span class="phonetic">/deɪz/</span></li>
-                            <li><code>sing</code> <span class="phonetic">/sɪŋ/</span> <span class="arrow">→</span> <code>sings</code> <span class="phonetic">/sɪŋz/</span></li>
-                            <li><code>breathe</code> <span class="phonetic">/briːð/</span> <span class="arrow">→</span> <code>breathes</code> <span class="phonetic">/briːðz/</span></li>
+                            <li><code>song</code> <span class="phonetic">/sɒŋ/</span> <span class="arrow">→</span> <code>songs</code> <span class="phonetic">/sɒŋz/</span></li>
                         </ul>
                     </article>
+
+                    <div class="mt-6">
+                        <button class="px-4 py-2 bg-button-bg text-button-text rounded hover:bg-button-hover" onclick="openQuiz('s-quiz')">Take the -S Pronunciation Quiz</button>
+                        <div id="s-quiz" class="mt-4 hidden">
+                            <h3 class="text-xl font-semibold text-primary-dark mb-4">Test Your -S Pronunciation Knowledge</h3>
+                            <div class="space-y-6">
+                                <div>
+                                    <p class="mb-2">1. How is the "-s" ending pronounced in <code>watch</code>?</p>
+                                    <div class="space-y-2">
+                                        <label class="flex items-center">
+                                            <input type="radio" name="s-q1" value="/s/" class="mr-2"> <span class="phonetic">/s/</span>
+                                        </label>
+                                        <label class="flex items-center">
+                                            <input type="radio" name="s-q1" value="/z/" class="mr-2"> <span class="phonetic">/z/</span>
+                                        </label>
+                                        <label class="flex items-center">
+                                            <input type="radio" name="s-q1" value="/ɪz/" class="mr-2"> <span class="phonetic">/ɪz/</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div>
+                                    <p class="mb-2">2. How is the "-s" ending pronounced in <code>cup</code>?</p>
+                                    <div class="space-y-2">
+                                        <label class="flex items-center">
+                                            <input type="radio" name="s-q2" value="/s/" class="mr-2"> <span class="phonetic">/s/</span>
+                                        </label>
+                                        <label class="flex items-center">
+                                            <input type="radio" name="s-q2" value="/z/" class="mr-2"> <span class="phonetic">/z/</span>
+                                        </label>
+                                        <label class="flex items-center">
+                                            <input type="radio" name="s-q2" value="/ɪz/" class="mr-2"> <span class="phonetic">/ɪz/</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div>
+                                    <p class="mb-2">3. How is the "-s" ending pronounced in <code>play</code>?</p>
+                                    <div class="space-y-2">
+                                        <label class="flex items-center">
+                                            <input type="radio" name="s-q3" value="/s/" class="mr-2"> <span class="phonetic">/s/</span>
+                                        </label>
+                                        <label class="flex items-center">
+                                            <input type="radio" name="s-q3" value="/z/" class="mr-2"> <span class="phonetic">/z/</span>
+                                        </label>
+                                        <label class="flex items-center">
+                                            <input type="radio" name="s-q3" value="/ɪz/" class="mr-2"> <span class="phonetic">/ɪz/</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div>
+                                    <p class="mb-2">4. How is the "-s" ending pronounced in <code>rose</code>?</p>
+                                    <div class="space-y-2">
+                                        <label class="flex items-center">
+                                            <input type="radio" name="s-q4" value="/s/" class="mr-2"> <span class="phonetic">/s/</span>
+                                        </label>
+                                        <label class="flex items-center">
+                                            <input type="radio" name="s-q4" value="/z/" class="mr-2"> <span class="phonetic">/z/</span>
+                                        </label>
+                                        <label class="flex items-center">
+                                            <input type="radio" name="s-q4" value="/ɪz/" class="mr-2"> <span class="phonetic">/ɪz/</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div>
+                                    <p class="mb-2">5. How is the "-s" ending pronounced in <code>kick</code>?</p>
+                                    <div class="space-y-2">
+                                        <label class="flex items-center">
+                                            <input type="radio" name="s-q5" value="/s/" class="mr-2"> <span class="phonetic">/s/</span>
+                                        </label>
+                                        <label class="flex items-center">
+                                            <input type="radio" name="s-q5" value="/z/" class="mr-2"> <span class="phonetic">/z/</span>
+                                        </label>
+                                        <label class="flex items-center">
+                                            <input type="radio" name="s-q5" value="/ɪz/" class="mr-2"> <span class="phonetic">/ɪz/</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-4 flex space-x-2">
+                                <button class="px-4 py-2 bg-button-bg text-button-text rounded hover:bg-button-hover" onclick="submitQuiz('s')">Submit Quiz</button>
+                                <button class="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600" onclick="resetQuiz('s')">Try Again</button>
+                            </div>
+                        </div>
+                    </div>
                 </section>
             </div>
         </main>
@@ -262,10 +484,8 @@
                 <h2 class="text-2xl font-semibold text-primary-color mb-3">Conclusion</h2>
                 <p class="text-lg leading-relaxed">
                     By understanding the concepts of voiced and voiceless sounds, and identifying the final sound of a word, you can accurately predict and produce the correct pronunciation for "-s" and "-ed" endings in English. Consistent practice with these rules will significantly improve your fluency and confidence!
-                </p>
-                <br/>
-                <p class="text-lg leading-relaxed">
-                    Created by Adenilson Ribeiro
+                <br/><br/>
+                Created by Adenilson Ribeiro
                 </p>
             </section>
         </footer>
@@ -292,7 +512,6 @@
     <!-- Settings panel -->
     <div class="settings-panel" id="settingsPanel">
         <h3 class="text-lg font-semibold mb-3">Settings</h3>
-        
         <div class="mb-4">
             <label class="block text-sm font-medium mb-1">Font Family</label>
             <select id="fontSelect" class="w-full p-2 border rounded bg-card-bg border-card-border">
@@ -302,7 +521,6 @@
                 <option value="Merriweather">Merriweather</option>
             </select>
         </div>
-        
         <div>
             <label class="block text-sm font-medium mb-1">Color Scheme</label>
             <div class="flex space-x-2">
@@ -310,6 +528,16 @@
                 <button id="darkTheme" class="flex-1 p-2 border rounded bg-gray-800 text-white">Dark</button>
                 <button id="autoTheme" class="flex-1 p-2 border rounded bg-gray-200 text-gray-800 dark:bg-gray-700 dark:text-white">Auto</button>
             </div>
+        </div>
+    </div>
+
+    <!-- Quiz Results Modal -->
+    <div class="modal" id="quiz-modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal()">×</span>
+            <h3 class="text-xl font-semibold text-primary-dark mb-4">Quiz Results</h3>
+            <div id="quiz-results" class="space-y-4"></div>
+            <button class="mt-4 px-4 py-2 bg-button-bg text-button-text rounded hover:bg-button-hover" onclick="closeModal()">Close</button>
         </div>
     </div>
 
@@ -336,21 +564,19 @@
             const darkThemeBtn = document.getElementById('darkTheme');
             const autoThemeBtn = document.getElementById('autoTheme');
             const html = document.documentElement;
-            
-            // Check for saved theme preference or use system preference
+
             function loadThemePreference() {
                 const savedTheme = localStorage.getItem('theme');
                 const savedTime = localStorage.getItem('themeTime');
                 const now = new Date().getTime();
-                
-                // If preference is older than 24 hours, clear it
+
                 if (savedTime && now - savedTime > 24 * 60 * 60 * 1000) {
                     localStorage.removeItem('theme');
                     localStorage.removeItem('themeTime');
                     applySystemTheme();
                     return;
                 }
-                
+
                 if (savedTheme === 'dark') {
                     html.classList.add('dark');
                 } else if (savedTheme === 'light') {
@@ -359,7 +585,7 @@
                     applySystemTheme();
                 }
             }
-            
+
             function applySystemTheme() {
                 if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
                     html.classList.add('dark');
@@ -367,39 +593,35 @@
                     html.classList.remove('dark');
                 }
             }
-            
+
             function saveThemePreference(theme) {
                 localStorage.setItem('theme', theme);
                 localStorage.setItem('themeTime', new Date().getTime());
             }
-            
-            // Initial load
+
             loadThemePreference();
-            
-            // Toggle theme
+
             themeToggle.addEventListener('click', () => {
                 html.classList.toggle('dark');
                 saveThemePreference(html.classList.contains('dark') ? 'dark' : 'light');
             });
-            
-            // Manual theme selection
+
             lightThemeBtn.addEventListener('click', () => {
                 html.classList.remove('dark');
                 saveThemePreference('light');
             });
-            
+
             darkThemeBtn.addEventListener('click', () => {
                 html.classList.add('dark');
                 saveThemePreference('dark');
             });
-            
+
             autoThemeBtn.addEventListener('click', () => {
                 localStorage.removeItem('theme');
                 localStorage.removeItem('themeTime');
                 applySystemTheme();
             });
-            
-            // Watch for system theme changes
+
             window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
                 if (!localStorage.getItem('theme')) {
                     if (e.matches) {
@@ -412,34 +634,31 @@
 
             // Font functionality
             const fontSelect = document.getElementById('fontSelect');
-            
+
             function loadFontPreference() {
                 const savedFont = localStorage.getItem('font');
                 const savedTime = localStorage.getItem('fontTime');
                 const now = new Date().getTime();
-                
-                // If preference is older than 24 hours, clear it
+
                 if (savedTime && now - savedTime > 24 * 60 * 60 * 1000) {
                     localStorage.removeItem('font');
                     localStorage.removeItem('fontTime');
                     return;
                 }
-                
+
                 if (savedFont) {
                     document.documentElement.style.setProperty('--current-font', savedFont);
                     fontSelect.value = savedFont;
                 }
             }
-            
+
             function saveFontPreference(font) {
                 localStorage.setItem('font', font);
                 localStorage.setItem('fontTime', new Date().getTime());
             }
-            
-            // Initial load
+
             loadFontPreference();
-            
-            // Change font
+
             fontSelect.addEventListener('change', () => {
                 const selectedFont = fontSelect.value;
                 document.documentElement.style.setProperty('--current-font', selectedFont);
@@ -449,19 +668,82 @@
             // Settings panel toggle
             const settingsToggle = document.getElementById('settingsToggle');
             const settingsPanel = document.getElementById('settingsPanel');
-            
+
             settingsToggle.addEventListener('click', () => {
                 settingsPanel.style.display = settingsPanel.style.display === 'block' ? 'none' : 'block';
             });
-            
-            // Close settings when clicking outside
+
             document.addEventListener('click', (event) => {
                 if (!settingsPanel.contains(event.target) && !settingsToggle.contains(event.target)) {
                     settingsPanel.style.display = 'none';
                 }
             });
         });
-    </script>
 
+        // Quiz functionality
+        function openQuiz(quizId) {
+            document.getElementById(quizId).classList.remove('hidden');
+        }
+
+        function resetQuiz(type) {
+            const quizDiv = document.getElementById(`${type}-quiz`);
+            const radios = quizDiv.querySelectorAll('input[type="radio"]');
+            radios.forEach(radio => {
+                radio.checked = false;
+                radio.disabled = false;
+            });
+            quizDiv.classList.add('hidden');
+        }
+
+        function submitQuiz(type) {
+            const answers = {
+                ed: [
+                    { q: 1, word: 'miss', correct: '/t/', explanation: '<code>miss</code> ends in /s/, a voiceless consonant, so the -ed is pronounced /t/ (missed /mɪst/).' },
+                    { q: 2, word: 'live', correct: '/d/', explanation: '<code>live</code> ends in /v/, a voiced consonant, so the -ed is pronounced /d/ (lived /lɪvd/).' },
+                    { q: 3, word: 'wait', correct: '/ɪd/', explanation: '<code>wait</code> ends in /t/, so the -ed is pronounced /ɪd/ (waited /weɪtɪd/).' },
+                    { q: 4, word: 'jump', correct: '/t/', explanation: '<code>jump</code> ends in /p/, a voiceless consonant, so the -ed is pronounced /t/ (jumped /dʒʌmpt/).' },
+                    { q: 5, word: 'try', correct: '/d/', explanation: '<code>try</code> ends in /aɪ/, a vowel sound, so the -ed is pronounced /d/ (tried /traɪd/).' }
+                ],
+                s: [
+                    { q: 1, word: 'watch', correct: '/ɪz/', explanation: '<code>watch</code> ends in /tʃ/, a sibilant sound, so the -s is pronounced /ɪz/ (watches /wɒtʃɪz/).' },
+                    { q: 2, word: 'cup', correct: '/s/', explanation: '<code>cup</code> ends in /p/, a voiceless consonant, so the -s is pronounced /s/ (cups /kʌps/).' },
+                    { q: 3, word: 'play', correct: '/z/', explanation: '<code>play</code> ends in /eɪ/, a vowel sound, so the -s is pronounced /z/ (plays /pleɪz/).' },
+                    { q: 4, word: 'rose', correct: '/ɪz/', explanation: '<code>rose</code> ends in /z/, a sibilant sound, so the -s is pronounced /ɪz/ (roses /roʊzɪz/).' },
+                    { q: 5, word: 'kick', correct: '/s/', explanation: '<code>kick</code> ends in /k/, a voiceless consonant, so the -s is pronounced /s/ (kicks /kɪks/).' }
+                ]
+            };
+
+            let score = 0;
+            const results = [];
+            const quizAnswers = answers[type];
+
+            quizAnswers.forEach(answer => {
+                const selected = document.querySelector(`input[name="${type}-q${answer.q}"]:checked`);
+                const isCorrect = selected && selected.value === answer.correct;
+                if (isCorrect) score++;
+                results.push(`
+                    <div class="quiz-feedback ${isCorrect ? 'correct' : 'incorrect'}">
+                        <p><strong>Question ${answer.q}: <code>${answer.word}</code></strong></p>
+                        <p>${isCorrect ? 'Correct!' : 'Incorrect.'} ${answer.explanation}</p>
+                    </div>
+                `);
+            });
+
+            const resultsDiv = document.getElementById('quiz-results');
+            resultsDiv.innerHTML = `
+                <p class="text-lg font-semibold">Your Score: ${score} out of 5</p>
+                ${results.join('')}
+            `;
+            document.getElementById('quiz-modal').style.display = 'flex';
+
+            // Disable radios after submission
+            const quizDiv = document.getElementById(`${type}-quiz`);
+            quizDiv.querySelectorAll('input[type="radio"]').forEach(radio => radio.disabled = true);
+        }
+
+        function closeModal() {
+            document.getElementById('quiz-modal').style.display = 'none';
+        }
+    </script>
 </body>
 </html>
